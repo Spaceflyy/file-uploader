@@ -6,6 +6,8 @@
 		<title><%=title %></title>
 	</head>
 	<body>
-		<h1>login here</h1>
+		<% if (locals.user) {%>
+		<h1>Welcome back</h1>
+		<% } else { %> <%-include("./partials/signup") %> <%}%>
 	</body>
 </html>
