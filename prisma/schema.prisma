@@ -15,7 +15,7 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  username String
+  username String @unique
   password String
   files File[]
   folders Folder[]
@@ -26,15 +26,15 @@ model File {
   fileUrl String
   author User @relation(fields: [authorId], references: [id])
   folder Folder @relation(fields: [folderId], references: [id])
-  authorId Int
-  folderId Int
+  authorId Int @unique
+  folderId Int @unique
 }
 
 model Folder{
   id Int @id @default(autoincrement())
   files File[]
   author User @relation(fields: [authorId], references: [id])
-  authorId Int
+  authorId Int @unique
 }
 
 
