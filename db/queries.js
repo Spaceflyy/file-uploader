@@ -9,3 +9,8 @@ exports.getUser = async (username) => {
 	const user = await prisma.user.findFirst({ where: { username: username } });
 	return user;
 };
+
+exports.getAllFolders = async (userId) => {
+	const folders = await prisma.folder.findMany({ where: { authorId: userId } });
+	return folders;
+};

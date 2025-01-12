@@ -5,8 +5,6 @@ const { createFolder, userLogout, addUser, userLogin } = userController;
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
-//consider moving these to own file router / controller
-router.post("/create", createFolder); //TODO create createFolder function
 router.post("/upload", upload.single("file"), (req, res) => {
 	res.redirect("/");
 });

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%=title%></title>
+	</head>
+	<body>
+		<%if(folders.length > 0) {%> <% folders.forEach((f) => { %>
+		<h1><%=f.name%></h1>
+		<% }); %> <%} else {%>
+		<p>Nothing here</p>
+		<%}%>
+	</body>
+</html>
