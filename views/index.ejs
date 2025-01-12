@@ -9,6 +9,8 @@
 		<% if (locals.user) {%>
 		<h1>Welcome back <%=user.username%></h1>
 		<a href="/logout">Logout</a>
-		<% } else { %> <%-include("./partials/signup") %> <%}%>
+		<a href="/create">New Folder</a>
+		<%-include("./partials/fileupload") %> <% } else { %>
+		<%-include("./partials/login") %> <%}%>
 	</body>
 </html>

@@ -9,9 +9,11 @@ exports.addUser = [
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res
-				.status(400)
-				.render("index", { title: "Home", user: req.user, errors: errors.array() });
+			return res.status(400).render("signup", {
+				title: "Home",
+				user: req.user,
+				errors: errors.array(),
+			});
 		}
 
 		const { username, password } = req.body;
