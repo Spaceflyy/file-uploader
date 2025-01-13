@@ -10,3 +10,11 @@ exports.getAllFolders = async (user) => {
 	const userFolders = await db.getAllFolders(user);
 	return userFolders;
 };
+
+exports.getFolder = async (id) => {
+	return await db.getSingleFolder(id);
+};
+
+exports.updateFolder = async (newName, id) => {
+	return await db.updateSingleFolder(newName, id);
+};

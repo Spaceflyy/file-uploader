@@ -32,3 +32,10 @@ exports.getSingleFolder = async (folderId) => {
 exports.deleteSingleFolder = async (folderId) => {
 	await prisma.folder.delete({ where: { id: folderId } });
 };
+
+exports.updateSingleFolder = async (newName, folderId) => {
+	await prisma.folder.update({
+		where: { id: folderId },
+		data: { name: newName },
+	});
+};

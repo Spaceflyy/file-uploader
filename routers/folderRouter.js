@@ -3,11 +3,21 @@ const {
 	deleteFolder,
 	createFolder,
 	getAllFolders,
+	getFolder,
+	updateFolder,
 } = require("../controllers/folderController");
+
 const router = Router();
-router.post("/delete/:folder", async (req, res) => {
-	const { folder } = req.params;
-	await deleteFolder(Number(folder));
+
+router.post("/update/:id", async (req, res) => {
+	const { id } = req.params;
+	const { newName } = req.body;
+	await updateFolder(newName, Number(id));
+	res.redirect("/folders");
+});
+router.post("/delete/:id", async (req, res) => {
+	const { id } = req.params;
+	await deleteFolder(Number(id));
 	res.redirect("/folders");
 });
 router.post("/create", async (req, res) => {
@@ -19,6 +29,12 @@ router.get("/create", (req, res) => {
 	res.render("create", { title: "Add Folder" });
 });
 
+router.get("/update/:id", async (req, res) => {
+	const { id } = req.params;
+	const folder = await getFolder(Number(id));
+	res.render("update", { title: "Update Folder", folder: folder });
+});
+
 //TODO: need to implement this properly
 router.get("/:id", (req, res) => {
 	const { id } = req.params;
@@ -27,7 +43,6 @@ router.get("/:id", (req, res) => {
 
 router.get("/", async (req, res) => {
 	const userFolders = await getAllFolders(req.user.id);
-
 	res.render("folders", { title: "My Folders.", folders: userFolders });
 });
 
