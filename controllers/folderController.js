@@ -1,10 +1,12 @@
 const db = require("../db/queries");
+exports.deleteFolder = async (id) => {
+	await db.deleteSingleFolder(id);
+};
+exports.createFolder = async (name, user) => {
+	await db.createNewFolder(name, user);
+};
 
-const createFolder = async (req, res) => {};
-
-async function getAllFolders(user) {
+exports.getAllFolders = async (user) => {
 	const userFolders = await db.getAllFolders(user);
 	return userFolders;
-}
-
-module.exports = { createFolder, getAllFolders };
+};

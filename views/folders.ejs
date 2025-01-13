@@ -7,7 +7,15 @@
 	</head>
 	<body>
 		<%if(folders.length > 0) {%> <% folders.forEach((f) => { %>
-		<h1><%=f.name%></h1>
+		<h1><a href="/folders/<%=f.id%>"><%=f.name%></a></h1>
+		<form action="/folders/delete/<%=f.id%>" method="POST">
+			<button
+				onclick="return confirm(`Are you sure you wish to delete this folder?`)"
+			>
+				Delete
+			</button>
+		</form>
+
 		<% }); %> <%} else {%>
 		<p>Nothing here</p>
 		<%}%>

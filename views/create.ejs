@@ -3,12 +3,13 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title><%title%></title>
 	</head>
 	<body>
-		<form action="/create" method="POST">
-			<label for="folder">Folder Name:</label
-			><input type="text" name="folder" id="folder" />
+		<form action="/folders/create" method="POST">
+			<label for="folderName">Folder Name:</label
+			><input type="text" name="folderName" id="folderName" />
+			<button>Add Folder</button>
 		</form>
 	</body>
 </html>

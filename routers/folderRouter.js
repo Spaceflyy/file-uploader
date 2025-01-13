@@ -1,9 +1,30 @@
 const { Router } = require("express");
-const { getAllFolders } = require("../controllers/folderController");
+const {
+	deleteFolder,
+	createFolder,
+	getAllFolders,
+} = require("../controllers/folderController");
 const router = Router();
-//consider moving these to own file router / controller
-// router.post("/create", createFolder); //TODO create createFolder function
-// router.get("/:id", getSingleFolder); // view the folder clicked on
+router.post("/delete/:folder", async (req, res) => {
+	const { folder } = req.params;
+	await deleteFolder(Number(folder));
+	res.redirect("/folders");
+});
+router.post("/create", async (req, res) => {
+	const { folderName } = req.body;
+	await createFolder(folderName, req.user.id);
+	res.redirect("/folders");
+});
+router.get("/create", (req, res) => {
+	res.render("create", { title: "Add Folder" });
+});
+
+//TODO: need to implement this properly
+router.get("/:id", (req, res) => {
+	const { id } = req.params;
+	res.send(`This is folder number: ${id}`);
+});
+
 router.get("/", async (req, res) => {
 	const userFolders = await getAllFolders(req.user.id);
 

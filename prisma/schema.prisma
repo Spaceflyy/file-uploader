@@ -26,8 +26,8 @@ model File {
   fileUrl String
   author User @relation(fields: [authorId], references: [id])
   folder Folder @relation(fields: [folderId], references: [id])
-  authorId Int @unique
-  folderId Int @unique
+  authorId Int 
+  folderId Int 
 }
 
 model Folder{
@@ -35,7 +35,7 @@ model Folder{
   name String @unique
   files File[]
   author User @relation(fields: [authorId], references: [id])
-  authorId Int @unique
+  authorId Int 
 }
 
 
