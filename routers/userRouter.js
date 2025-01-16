@@ -1,13 +1,11 @@
 const { Router } = require("express");
 const userController = require("../controllers/userController");
 const router = Router();
-const { createFolder, userLogout, addUser, userLogin } = userController;
+const { userLogout, addUser, userLogin } = userController;
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/upload", upload.single("file"), (req, res) => {
-	res.redirect("/");
-});
+router.post("/upload", upload.single("file"), async (req, res) => {});
 
 router.post("/login", userLogin);
 router.post("/signup", addUser);

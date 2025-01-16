@@ -39,3 +39,9 @@ exports.updateSingleFolder = async (newName, folderId) => {
 		data: { name: newName },
 	});
 };
+
+exports.addSingleFile = async (userId, file, url) => {
+	await prisma.file.create({
+		data: { name: file.name, size: file.size, fileUrl: url, authorId: userId },
+	});
+};
