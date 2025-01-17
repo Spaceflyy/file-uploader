@@ -19,6 +19,9 @@
 
 		<% }); %> <%} else {%>
 		<p>Nothing here</p>
-		<%}%>
+		<%}%> <%if(files.length > 0) {%> <% files.forEach((f) => { %>
+		<p><%=f.name%></p>
+
+		<% }); %> <%} %>
 	</body>
 </html>

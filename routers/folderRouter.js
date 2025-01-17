@@ -6,6 +6,7 @@ const {
 	getFolder,
 	updateFolder,
 } = require("../controllers/folderController");
+const { getAllUserFiles } = require("../db/queries");
 
 const router = Router();
 
@@ -43,7 +44,12 @@ router.get("/:id", (req, res) => {
 
 router.get("/", async (req, res) => {
 	const userFolders = await getAllFolders(req.user.id);
-	res.render("folders", { title: "My Folders.", folders: userFolders });
+	const userFiles = await getAllUserFiles(req.user.id);
+	res.render("folders", {
+		title: "My Folders.",
+		folders: userFolders,
+		files: userFiles,
+	});
 });
 
 module.exports = router;

@@ -1,6 +1,8 @@
 const db = require("../db/queries");
 const { decode } = require("base64-arraybuffer");
 const { uploadFile } = require("../public/supabase");
+
+//TODO rewrite these functions
 exports.deleteFolder = async (id) => {
 	await db.deleteSingleFolder(id);
 };
@@ -20,7 +22,7 @@ exports.getFolder = async (id) => {
 exports.updateFolder = async (newName, id) => {
 	return await db.updateSingleFolder(newName, id);
 };
-
+//move this to the file controller
 exports.uploadFile = async (user, rawFile) => {
 	const path = `${user.id}/${rawFile.originalname}`;
 	const file = decode(rawFile.buffer.toString("base64"));

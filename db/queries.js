@@ -40,8 +40,27 @@ exports.updateSingleFolder = async (newName, folderId) => {
 	});
 };
 
-exports.addSingleFile = async (userId, file, url) => {
+exports.addSingleFile = async (
+	userId,
+	fileName,
+	size,
+	url,
+	folderId = null
+) => {
 	await prisma.file.create({
-		data: { name: file.name, size: file.size, fileUrl: url, authorId: userId },
+		data: {
+			authorId: userId,
+			name: fileName,
+			size: size,
+			fileUrl: url,
+			//Need to figure out how to make folder id optional
+			folderId: null,
+		},
 	});
+};
+
+exports.getAllUserFiles = async (userId) => {
+	return (folders = await prisma.file.findMany({
+		where: { authorId: userId },
+	}));
 };

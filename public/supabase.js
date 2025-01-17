@@ -24,4 +24,9 @@ exports.downloadFile = async (path) => {
 	const { data, error } = await supabase.storage
 		.from(`userfiles`)
 		.download(path);
+	return data;
+};
+
+exports.getFileURL = async (path) => {
+	const { data } = await supabase.storage.from(`userfiles`).getPublicUrl(path);
 };
