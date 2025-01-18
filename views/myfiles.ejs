@@ -6,22 +6,22 @@
 		<title><%=title%></title>
 	</head>
 	<body>
-		<%if(folders.length > 0) {%> <% folders.forEach((f) => { %>
-		<h1><a href="/folders/<%=f.id%>"><%=f.name%></a></h1>
-		<form action="/folders/delete/<%=f.id%>" method="POST">
+		<%if(folders.length > 0 || files.length>0 ) {%> <% folders.forEach((f) => { %>
+		<h1><a href="/myfiles/<%=f.id%>"><%=f.name%></a></h1>
+		<form action="/myfiles/delete/<%=f.id%>" method="POST">
 			<button
 				onclick="return confirm(`Are you sure you wish to delete this folder?`)"
 			>
 				Delete
 			</button>
 		</form>
-		<a href="/folders/update/<%=f.id%>">Edit</a>
+		<a href="/myfiles/update/<%=f.id%>">Edit</a>
 
+		<% }); %> <% files.forEach((f) => { %>
+		<p><%=f.name%></p>
+		<p><%=f.folderId%></p>
 		<% }); %> <%} else {%>
 		<p>Nothing here</p>
-		<%}%> <%if(files.length > 0) {%> <% files.forEach((f) => { %>
-		<p><%=f.name%></p>
-
-		<% }); %> <%} %>
+		<%}%>
 	</body>
 </html>

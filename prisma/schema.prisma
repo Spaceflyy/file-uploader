@@ -30,7 +30,7 @@ model File {
   author User @relation(fields: [authorId], references: [id])
   folder Folder? @relation(fields: [folderId], references: [id])
   authorId Int 
-  folderId Int 
+  folderId Int?
 }
 
 model Folder{

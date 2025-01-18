@@ -22,11 +22,3 @@ exports.getFolder = async (id) => {
 exports.updateFolder = async (newName, id) => {
 	return await db.updateSingleFolder(newName, id);
 };
-//move this to the file controller
-exports.uploadFile = async (user, rawFile) => {
-	const path = `${user.id}/${rawFile.originalname}`;
-	const file = decode(rawFile.buffer.toString("base64"));
-	uploadFile(path, file); // uploads to supabase
-
-	res.redirect("/");
-};

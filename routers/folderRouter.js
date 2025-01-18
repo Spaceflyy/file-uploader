@@ -6,7 +6,7 @@ const {
 	getFolder,
 	updateFolder,
 } = require("../controllers/folderController");
-const { getAllUserFiles } = require("../db/queries");
+const { getAllUserFilesByFolder, getSingleFolder } = require("../db/queries");
 
 const router = Router();
 
@@ -14,17 +14,17 @@ router.post("/update/:id", async (req, res) => {
 	const { id } = req.params;
 	const { newName } = req.body;
 	await updateFolder(newName, Number(id));
-	res.redirect("/folders");
+	res.redirect("/myfiles");
 });
 router.post("/delete/:id", async (req, res) => {
 	const { id } = req.params;
 	await deleteFolder(Number(id));
-	res.redirect("/folders");
+	res.redirect("/myfiles");
 });
 router.post("/create", async (req, res) => {
 	const { folderName } = req.body;
 	await createFolder(folderName, req.user.id);
-	res.redirect("/folders");
+	res.redirect("/myfiles");
 });
 router.get("/create", (req, res) => {
 	res.render("create", { title: "Add Folder" });
@@ -37,16 +37,20 @@ router.get("/update/:id", async (req, res) => {
 });
 
 //TODO: need to implement this properly
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
 	const { id } = req.params;
-	res.send(`This is folder number: ${id}`);
+
+	const { name, files } = await getSingleFolder(Number(id));
+
+	res.render("folder", { title: "Folder", folderName: name, files: files });
 });
 
 router.get("/", async (req, res) => {
 	const userFolders = await getAllFolders(req.user.id);
-	const userFiles = await getAllUserFiles(req.user.id);
-	res.render("folders", {
-		title: "My Folders.",
+	const userFiles = await getAllUserFilesByFolder(req.user.id, null);
+	console.log(userFiles);
+	res.render("myfiles", {
+		title: "My Files",
 		folders: userFolders,
 		files: userFiles,
 	});

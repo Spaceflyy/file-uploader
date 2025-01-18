@@ -28,7 +28,7 @@ app.use(
 	})
 );
 app.use(passport.session());
-app.use("/folders", folderRouter);
+app.use("/myfiles", folderRouter);
 app.use("/", userRouter);
 
 app.listen(3000, () => {
