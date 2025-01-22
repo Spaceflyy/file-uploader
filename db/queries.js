@@ -1,23 +1,19 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-
+exports.getUser = async (id) => {
+	return await prisma.user.findUnique({
+		where: { id: id },
+		include: { folders: true, files: true },
+	});
+};
 exports.createUser = async (username, password) => {
 	await prisma.user.create({ data: { username: username, password: password } });
 };
 
-exports.getUser = async (username) => {
-	const user = await prisma.user.findFirst({ where: { username: username } });
-	return user;
-};
-
-exports.getAllFolders = async (userId) => {
-	return await prisma.folder.findMany({
-		where: { authorId: userId },
+exports.createNewFolder = async (name, userId, parentId) => {
+	await prisma.folder.create({
+		data: { name: name, authorId: userId, parentId },
 	});
-};
-
-exports.createNewFolder = async (name, userId) => {
-	await prisma.folder.create({ data: { name: name, authorId: userId } });
 };
 
 exports.getSingleFolder = async (folderId) => {
@@ -25,6 +21,7 @@ exports.getSingleFolder = async (folderId) => {
 		where: { id: folderId },
 		include: {
 			files: true,
+			childFolders: true,
 		},
 	});
 };
@@ -47,14 +44,7 @@ exports.addSingleFile = async (userId, fileName, size, url, folderId) => {
 			name: fileName,
 			size: size,
 			fileUrl: url,
-			//Need to figure out how to make folder id optional
 			folderId: folderId,
 		},
 	});
-};
-
-exports.getAllUserFilesByFolder = async (userId, folderId) => {
-	return (folders = await prisma.file.findMany({
-		where: { authorId: userId, folderId: folderId },
-	}));
 };

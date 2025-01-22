@@ -20,7 +20,7 @@ exports.uploadFile = async (path, file) => {
 	}
 };
 
-exports.downloadFile = async (path) => {
+exports.downloadFileFromSupabase = async (path) => {
 	const { data, error } = await supabase.storage
 		.from(`userfiles`)
 		.download(path);

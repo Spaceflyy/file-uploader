@@ -6,8 +6,10 @@
 		<title><%=title%></title>
 	</head>
 	<body>
-		<%if(folders.length > 0 || files.length>0 ) {%> <% folders.forEach((f) => { %>
-		<h1><a href="/myfiles/<%=f.id%>"><%=f.name%></a></h1>
+		<h1>My Files</h1>
+		<%-include("./partials/create",{folder:null}) %> <%if(folders.length > 0 ||
+		files.length>0 ) {%> <% folders.forEach((f) => { %> <% if(!f.parentId) {%>
+		<h2><a href="/myfiles/<%=f.id%>"><%=f.name%></a></h2>
 		<form action="/myfiles/delete/<%=f.id%>" method="POST">
 			<button
 				onclick="return confirm(`Are you sure you wish to delete this folder?`)"
@@ -16,11 +18,10 @@
 			</button>
 		</form>
 		<a href="/myfiles/update/<%=f.id%>">Edit</a>
-
-		<% }); %> <% files.forEach((f) => { %>
+		<%}%> <% }); %> <% files.forEach((f) => { %> <%if(!f.folderId) {%>
 		<p><%=f.name%></p>
 		<p><%=f.folderId%></p>
-		<% }); %> <%} else {%>
+		<%}%> <% }); %> <%} else {%>
 		<p>Nothing here</p>
 		<%}%>
 	</body>

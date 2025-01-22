@@ -33,10 +33,14 @@ model File {
   folderId Int?
 }
 
+//TODO Figure out how to nest folders within each other
 model Folder{
   id Int @id @default(autoincrement())
   name String @unique
   files File[]
+  parentId Int?
+  parentFolder Folder? @relation("ParentToChild", fields: [parentId], references: [id] , onDelete: Cascade)
+  childFolders Folder [] @relation("ParentToChild")
   author User @relation(fields: [authorId], references: [id])
   authorId Int 
 }

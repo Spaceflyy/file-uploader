@@ -43,3 +43,13 @@ exports.userLogin = passport.authenticate("local", {
 	failureRedirect: "/",
 	failureMessage: true,
 });
+
+exports.renderMyFiles = async (req, res) => {
+	const { folders, files } = await db.getUser(req.user.id);
+
+	res.render("myfiles", {
+		title: "My Files",
+		folders: folders,
+		files: files,
+	});
+};

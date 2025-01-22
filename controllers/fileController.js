@@ -1,6 +1,6 @@
 const db = require("../db/queries");
 const { decode } = require("base64-arraybuffer");
-const { getFileURL, uploadFile } = require("../public/supabase");
+const { uploadFile } = require("../public/supabase");
 const { createClient } = require("@supabase/supabase-js");
 require("dotenv").config();
 
@@ -13,12 +13,16 @@ exports.uploadFile = (req, res) => {
 	const { id } = req.user;
 	const { buffer, originalname, size } = req.file;
 	const path = `${id}/${originalname}`;
-	// const file = decode(buffer.toString("base64"));
-	// uploadFile(path, file); // uploads to supabase
+	const file = decode(buffer.toString("base64"));
+	uploadFile(path, file); // uploads to supabase
 
 	const { data } = supabase.storage.from(`userfiles`).getPublicUrl(path);
 	db.addSingleFile(id, originalname, size, data.publicUrl);
 	res.redirect("/");
 };
 
-exports.getAllfiles = async () => {};
+exports.downloadFile = async (req, res) => {
+	//TODO get path from button clicked on website needs to be /userid/filename
+	//Then run the download function from supabase
+	const { data } = await downloadFileFromSupabase(); // need to put path in this
+};
