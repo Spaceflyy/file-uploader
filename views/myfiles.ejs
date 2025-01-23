@@ -7,8 +7,9 @@
 	</head>
 	<body>
 		<h1>My Files</h1>
-		<%-include("./partials/create",{folder:null}) %> <%if(folders.length > 0 ||
-		files.length>0 ) {%> <% folders.forEach((f) => { %> <% if(!f.parentId) {%>
+		<%-include("./partials/create",{folder:null}) %>
+		<%-include("./partials/fileupload",{folder:null}) %> <%if(folders.length > 0
+		|| files.length>0 ) {%> <% folders.forEach((f) => { %> <% if(!f.parentId) {%>
 		<h2><a href="/myfiles/<%=f.id%>"><%=f.name%></a></h2>
 		<form action="/myfiles/delete/<%=f.id%>" method="POST">
 			<button
