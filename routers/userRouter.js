@@ -7,7 +7,7 @@ const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 const { uploadFile } = fileController;
 
-router.post("/upload", upload.single("file"), uploadFile);
+// router.post("/upload", upload.single("file"), uploadFile);
 router.post("/upload/:id", upload.single("file"), uploadFile);
 router.post("/login", userLogin);
 router.post("/signup", addUser);

@@ -21,7 +21,9 @@
 		<a href="/myfiles/update/<%=f.id%>">Edit</a>
 		<%}%> <% }); %> <% files.forEach((f) => { %> <%if(!f.folderId) {%>
 		<p><%=f.name%></p>
-		<p><%=f.folderId%></p>
+		<p></p>
+		<p>Folder ID: <%=f.folderId%></p>
+		<a href="/myfiles/download/1/<%=f.name%>">Download</a>
 		<%}%> <% }); %> <%} else {%>
 		<p>Nothing here</p>
 		<%}%>

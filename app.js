@@ -8,11 +8,11 @@ const folderRouter = require("./routers/folderRouter");
 const { PrismaClient } = require("@prisma/client");
 require("dotenv").config();
 const app = express();
-
+app.use(express.urlencoded({ extended: false }));
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(
 	session({

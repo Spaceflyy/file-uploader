@@ -1,3 +1,4 @@
+const fs = require("fs");
 const { createClient } = require("@supabase/supabase-js");
 require("dotenv").config();
 
@@ -13,18 +14,18 @@ exports.uploadFile = async (path, file) => {
 			.from(`userfiles`)
 			.upload(path, file);
 
-		console.log(data);
 		console.log(error);
 	} catch (error) {
 		console.error(error);
 	}
 };
 
-exports.downloadFileFromSupabase = async (path) => {
+exports.generateDownloadLink = async (path) => {
 	const { data, error } = await supabase.storage
 		.from(`userfiles`)
-		.download(path);
-	return data;
+		.createSignedUrl(path, 60, { download: true });
+
+	return data.signedUrl;
 };
 
 exports.getFileURL = async (path) => {

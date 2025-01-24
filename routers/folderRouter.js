@@ -7,7 +7,7 @@ const {
 	renderUpdateForm,
 } = require("../controllers/folderController");
 const { renderMyFiles } = require("../controllers/userController");
-
+const { downloadFile } = require("../controllers/fileController");
 const router = Router();
 
 router.post("/update/:id", async (req, res) => {
@@ -17,6 +17,7 @@ router.post("/update/:id", async (req, res) => {
 	res.redirect("/myfiles");
 });
 
+router.get("/download/*", downloadFile);
 router.post("/delete/:id", deleteFolder);
 
 router.post("/create", createFolder);
