@@ -48,3 +48,11 @@ exports.addSingleFile = async (userId, fileName, size, url, folderId) => {
 		},
 	});
 };
+
+exports.findFileById = async (fileId) => {
+	return await prisma.file.findUnique({ where: { id: fileId } });
+};
+
+exports.deleteSingleFile = async (fileId) => {
+	await prisma.file.delete({ where: { id: fileId } });
+};

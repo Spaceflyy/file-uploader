@@ -7,14 +7,9 @@ const supabase = createClient(
 	process.env.SUPABASE_KEY
 );
 
-//TODO: figure out how to catch supabase errors properly
 exports.uploadFile = async (path, file) => {
 	try {
-		const { data, error } = await supabase.storage
-			.from(`userfiles`)
-			.upload(path, file);
-
-		console.log(error);
+		await supabase.storage.from(`userfiles`).upload(path, file);
 	} catch (error) {
 		console.error(error);
 	}
@@ -23,11 +18,16 @@ exports.uploadFile = async (path, file) => {
 exports.generateDownloadLink = async (path) => {
 	const { data, error } = await supabase.storage
 		.from(`userfiles`)
-		.createSignedUrl(path, 60, { download: true });
-
+		.createSignedUrl(path, 5, { download: true });
 	return data.signedUrl;
 };
 
-exports.getFileURL = async (path) => {
-	const { data } = await supabase.storage.from(`userfiles`).getPublicUrl(path);
+exports.deleteFile = async (path) => {
+	const { data, error } = await supabase.storage
+		.from(`userfiles`)
+		.remove([path]);
+	if (error) {
+		console.log(error);
+		return null;
+	}
 };

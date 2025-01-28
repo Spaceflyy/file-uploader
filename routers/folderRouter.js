@@ -7,7 +7,8 @@ const {
 	renderUpdateForm,
 } = require("../controllers/folderController");
 const { renderMyFiles } = require("../controllers/userController");
-const { downloadFile } = require("../controllers/fileController");
+const { downloadFile, deleteFile } = require("../controllers/fileController");
+
 const router = Router();
 
 router.post("/update/:id", async (req, res) => {
@@ -19,9 +20,9 @@ router.post("/update/:id", async (req, res) => {
 
 router.get("/download/*", downloadFile);
 router.post("/delete/:id", deleteFolder);
+router.post("/delete/file/:id", deleteFile);
 
-router.post("/create", createFolder);
-router.post("/create/:id", createFolder);
+router.post("/create/:id?", createFolder);
 router.get("/update/:id", renderUpdateForm);
 
 router.get("/:id", renderFolder);
