@@ -23,9 +23,7 @@ exports.generateDownloadLink = async (path) => {
 };
 
 exports.deleteFile = async (path) => {
-	const { data, error } = await supabase.storage
-		.from(`userfiles`)
-		.remove([path]);
+	const { data, error } = await supabase.storage.from(`userfiles`).remove(path);
 	if (error) {
 		console.log(error);
 		return null;

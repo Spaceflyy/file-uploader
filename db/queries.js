@@ -26,6 +26,13 @@ exports.getSingleFolder = async (folderId) => {
 	});
 };
 
+exports.getFileUrlFromFolder = async (folderId) => {
+	return await prisma.folder.findFirst({
+		where: { id: folderId },
+		select: { files: { select: { fileUrl: true } } },
+	});
+};
+
 exports.deleteSingleFolder = async (folderId) => {
 	await prisma.folder.delete({ where: { id: folderId } });
 };

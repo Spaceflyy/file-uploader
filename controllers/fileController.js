@@ -19,7 +19,7 @@ exports.uploadFile = (req, res) => {
 exports.downloadFile = async (req, res) => {
 	const path = req.params[0];
 	console.log(path);
-	const url = await generateDownloadLink(path);
+	const url = await generateDownloadLink([path]);
 	res.redirect(url);
 };
 //delete file work on this today
