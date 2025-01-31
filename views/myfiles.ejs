@@ -9,7 +9,7 @@
 		<h1>My Files</h1>
 		<%-include("./partials/create",{folder:null}) %>
 		<%-include("./partials/fileupload",{folder:null}) %> <%if(folders.length > 0
-		|| files.length>0 ) {%> <% folders.forEach((f) => { %> <% if(!f.parentId) {%>
+		|| files.length>0 ) {%> <% folders.forEach((f) => { %>
 		<h2><a href="/myfiles/<%=f.id%>"><%=f.name%></a></h2>
 		<form action="/myfiles/delete/<%=f.id%>" method="POST">
 			<button
@@ -19,12 +19,7 @@
 			</button>
 		</form>
 		<a href="/myfiles/update/<%=f.id%>">Edit</a>
-		<%}%> <% }); %> <% files.forEach((f) => { %> <%if(!f.folderId) {%>
-		<p><%=f.name%></p>
-		<p></p>
-		<p>Folder ID: <%=f.folderId%></p>
-		<a href="/myfiles/download/1/<%=f.name%>">Download</a>
-		<%}%> <% }); %> <%} else {%>
+		<% }); %> <%-include("./partials/files",{ userId:userId})%><%} else {%>
 		<p>Nothing here</p>
 		<%}%>
 	</body>

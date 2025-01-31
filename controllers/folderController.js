@@ -10,7 +10,7 @@ exports.deleteFolder = async (req, res) => {
 };
 exports.createFolder = async (req, res) => {
 	const { folderName } = req.body;
-	await db.createNewFolder(folderName, req.user.id, Number(req.params.id));
+	await db.createNewFolder(folderName, req.user.id);
 	res.redirect("/myfiles");
 };
 
@@ -30,6 +30,6 @@ exports.renderFolder = async (req, res) => {
 		title: folder.name,
 		folder: folder,
 		files: folder.files,
-		folders: folder.childFolders,
+		userId: req.user.id,
 	});
 };

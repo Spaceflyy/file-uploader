@@ -46,10 +46,16 @@ exports.userLogin = passport.authenticate("local", {
 
 exports.renderMyFiles = async (req, res) => {
 	const { folders, files } = await db.getUser(req.user.id);
+	const filesNoFolder = files.filter((f) => {
+		if (f.folderId === null) {
+			return f;
+		}
+	});
 
 	res.render("myfiles", {
 		title: "My Files",
 		folders: folders,
-		files: files,
+		files: filesNoFolder,
+		userId: req.user.id,
 	});
 };

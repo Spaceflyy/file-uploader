@@ -21,7 +21,6 @@ exports.getSingleFolder = async (folderId) => {
 		where: { id: folderId },
 		include: {
 			files: true,
-			childFolders: true,
 		},
 	});
 };

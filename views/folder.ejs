@@ -7,34 +7,7 @@
 	</head>
 	<body>
 		<h1><%=folder.name%></h1>
-
-		<%-include("./partials/create",{folder:folder}) %>
 		<%-include("./partials/fileupload",{folder:folder}) %>
-		<div>
-			<% folders.forEach((f) => { %>
-			<h2><a href="/myfiles/<%=f.id%>"><%=f.name%></a></h2>
-			<form action="/myfiles/delete/<%=f.id%>" method="POST">
-				<button
-					onclick="return confirm(`Are you sure you wish to delete this folder?\nThis will delete ALL files / folder within!`)"
-				>
-					Delete
-				</button>
-			</form>
-			<a href="/myfiles/update/<%=f.id%>">Edit</a>
-			<% }); %> <% files.forEach((f) => { %>
-			<p><%=f.name%></p>
-			<p><%=f.folderId%></p>
-			//Need to change this so it grabs the 1 based on the user id. //If user 2
-			logs in this will break..
-			<a href="/myfiles/download/1/<%=f.name%>">Download</a>
-			<form action="/myfiles/delete/file/<%=f.id%>" method="POST">
-				<button
-					onclick="return confirm(`Are you sure you wish to delete this folder?\nThis will delete ALL files / folder within!`)"
-				>
-					Delete
-				</button>
-			</form>
-			<% }) %>
-		</div>
+		<div><%-include("./partials/files",{files:files, userId:userId})%></div>
 	</body>
 </html>

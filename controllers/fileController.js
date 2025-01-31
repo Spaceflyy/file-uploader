@@ -1,5 +1,6 @@
 const db = require("../db/queries");
 const { decode } = require("base64-arraybuffer");
+const { convertBytes } = require("../public/convertFileSize");
 const {
 	uploadFile,
 	generateDownloadLink,
@@ -9,11 +10,16 @@ const {
 exports.uploadFile = (req, res) => {
 	const { id } = req.params;
 	const { buffer, originalname, size } = req.file;
+	const fileSize = convertBytes(size);
 	const path = `${req.user.id}/${originalname}`;
 	const file = decode(buffer.toString("base64"));
 	uploadFile(path, file); // uploads to supabase
-	db.addSingleFile(req.user.id, originalname, size, path, Number(id));
-	res.redirect(`/myfiles/${id}`);
+	db.addSingleFile(req.user.id, originalname, fileSize, path, Number(id));
+	if (id) {
+		res.redirect(`/myfiles/${id}`);
+	} else {
+		res.redirect("/myfiles");
+	}
 };
 
 exports.downloadFile = async (req, res) => {
@@ -22,7 +28,7 @@ exports.downloadFile = async (req, res) => {
 	const url = await generateDownloadLink([path]);
 	res.redirect(url);
 };
-//delete file work on this today
+
 exports.deleteFile = async (req, res) => {
 	const fileId = req.params.id;
 	const { fileUrl } = await db.findFileById(Number(fileId));

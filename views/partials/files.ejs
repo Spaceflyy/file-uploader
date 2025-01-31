@@ -1,0 +1,12 @@
+<% files.forEach((f) => { %>
+<p><%=f.name%></p>
+<p><%=f.size%></p>
+<p><%=f.uploaded_at%></p>
+
+<a href="/myfiles/download/<%=userId%>/<%=f.name%>">Download</a>
+<form action="/myfiles/delete/file/<%=f.id%>" method="POST">
+	<button onclick="return confirm(`Are you sure you wish to delete this file?`)">
+		Delete
+	</button>
+</form>
+<% }) %>
