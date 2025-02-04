@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><%=title%></title>
 	</head>
+	<%-include("./partials/header", {user: user})%>
 	<body>
 		<form method="POST" action="/signup">
 			<h1>Sign Up</h1>

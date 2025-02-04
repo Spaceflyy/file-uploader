@@ -1,12 +1,38 @@
-<% files.forEach((f) => { %>
-<p><%=f.name%></p>
-<p><%=f.size%></p>
-<p><%=f.uploaded_at%></p>
-
-<a href="/myfiles/download/<%=userId%>/<%=f.name%>">Download</a>
-<form action="/myfiles/delete/file/<%=f.id%>" method="POST">
-	<button onclick="return confirm(`Are you sure you wish to delete this file?`)">
-		Delete
-	</button>
-</form>
+<div class="file">
+	<h2>Name</h2>
+	<h2>File Size</h2>
+	<h2>Date Created</h2>
+</div>
+<%if(folders) {%> <% folders.forEach((f) => { %>
+<div class="file">
+	<h2><a href="/myfiles/<%=f.id%>"><%=f.name%></a></h2>
+	<p>--</p>
+	<p><%=f.created%></p>
+	<div class="">
+		<a href="/myfiles/update/<%=f.id%>">Edit</a>
+		<form action="/myfiles/delete/<%=f.id%>" method="POST">
+			<button
+				onclick="return confirm(`Are you sure you wish to delete this folder?`)"
+			>
+				Delete
+			</button>
+		</form>
+	</div>
+</div>
+<% }); %> <%}%><% files.forEach((f) => { %>
+<div class="file">
+	<p><%=f.name%></p>
+	<p><%=f.size%></p>
+	<p><%=f.uploaded_at%></p>
+	<div>
+		<a href="/myfiles/download/<%=userId%>/<%=f.name%>">Download</a>
+		<form action="/myfiles/delete/file/<%=f.id%>" method="POST">
+			<button
+				onclick="return confirm(`Are you sure you wish to delete this file?`)"
+			>
+				Delete
+			</button>
+		</form>
+	</div>
+</div>
 <% }) %>

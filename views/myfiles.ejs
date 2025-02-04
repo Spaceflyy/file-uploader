@@ -2,24 +2,17 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="/styles/styles.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><%=title%></title>
 	</head>
+	<%-include("./partials/header", {user: user})%>
 	<body>
 		<h1>My Files</h1>
 		<%-include("./partials/create",{folder:null}) %>
 		<%-include("./partials/fileupload",{folder:null}) %> <%if(folders.length > 0
-		|| files.length>0 ) {%> <% folders.forEach((f) => { %>
-		<h2><a href="/myfiles/<%=f.id%>"><%=f.name%></a></h2>
-		<form action="/myfiles/delete/<%=f.id%>" method="POST">
-			<button
-				onclick="return confirm(`Are you sure you wish to delete this folder?`)"
-			>
-				Delete
-			</button>
-		</form>
-		<a href="/myfiles/update/<%=f.id%>">Edit</a>
-		<% }); %> <%-include("./partials/files",{ userId:userId})%><%} else {%>
+		|| files.length>0 ) {%> <%-include("./partials/files",{ userId:user.id})%><%}
+		else {%>
 		<p>Nothing here</p>
 		<%}%>
 	</body>

@@ -12,7 +12,6 @@ router.post("/login", userLogin);
 router.post("/signup", addUser);
 
 router.get("/logout", userLogout);
-router.get("/create", (req, res) => {});
 router.get("/signup", (req, res) => {
 	res.render("signup", { title: "Register" });
 });

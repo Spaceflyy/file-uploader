@@ -21,7 +21,11 @@ exports.updateFolder = async (newName, id) => {
 exports.renderUpdateForm = async (req, res) => {
 	const { id } = req.params;
 	const folder = await db.getSingleFolder(Number(id));
-	res.render("update", { title: "Update Folder", folder: folder });
+	res.render("update", {
+		title: "Update Folder",
+		folder: folder,
+		user: req.user,
+	});
 };
 
 exports.renderFolder = async (req, res) => {
@@ -30,6 +34,6 @@ exports.renderFolder = async (req, res) => {
 		title: folder.name,
 		folder: folder,
 		files: folder.files,
-		userId: req.user.id,
+		user: req.user,
 	});
 };

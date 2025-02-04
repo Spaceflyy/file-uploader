@@ -36,6 +36,7 @@ model File {
 model Folder{
   id Int @id @default(autoincrement())
   name String 
+  created DateTime @default(now())
   files File[]
   author User @relation(fields: [authorId], references: [id]) 
   authorId Int 

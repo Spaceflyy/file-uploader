@@ -3,11 +3,15 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/styles/styles.css" />
 		<title><%=title%></title>
 	</head>
+	<%-include("./partials/header", {user: user})%>
 	<body>
 		<h1><%=folder.name%></h1>
 		<%-include("./partials/fileupload",{folder:folder}) %>
-		<div><%-include("./partials/files",{files:files, userId:userId})%></div>
+		<div>
+			<%-include("./partials/files",{folders:null,files:files, userId:user.id})%>
+		</div>
 	</body>
 </html>

@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><%=title%></title>
 	</head>
+	<%-include("./partials/header", {user: user})%>
 	<body>
 		<form action="/myfiles/update/<%=folder.id%>" method="POST">
 			<label for="newName">New Name: </label>

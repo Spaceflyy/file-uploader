@@ -39,7 +39,7 @@ exports.userLogout = (req, res, next) => {
 };
 
 exports.userLogin = passport.authenticate("local", {
-	successRedirect: "/",
+	successRedirect: "/myfiles",
 	failureRedirect: "/",
 	failureMessage: true,
 });
@@ -56,6 +56,6 @@ exports.renderMyFiles = async (req, res) => {
 		title: "My Files",
 		folders: folders,
 		files: filesNoFolder,
-		userId: req.user.id,
+		user: req.user,
 	});
 };
